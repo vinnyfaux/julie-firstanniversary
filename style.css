@@ -1,0 +1,349 @@
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root{
+  /* usagi (yellow, bold, wildcard energy) */
+  --usagi-yellow: #F5C93B;
+  --usagi-gold:   #E8A93C;
+  --usagi-cream:  #FFF8E7;
+  --usagi-blush:  #F7C7C9;
+  --usagi-ink:    #3A2C1A;
+
+  /* chiikawa (soft pink/white, gentle) */
+  --chii-white:  #FFFDF9;
+  --chii-pink:   #F9C9CE;
+  --chii-blush:  #F4A6AE;
+  --chii-cream:  #FFE4C4;
+  --chii-ink:    #4A3B35;
+
+  /* letter (romantic pink + hearts) */
+  --letter-bg-a:  #FFE9EF;
+  --letter-bg-b:  #FFF4F6;
+  --letter-rose:  #E8899B;
+  --letter-deep:  #C0607A;
+  --letter-ink:   #5C3A42;
+
+  --serif-body: 'Lora', serif;
+  --round-body: 'Nunito', sans-serif;
+}
+
+*{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+body{
+  margin:0;
+  font-family: var(--round-body);
+  overflow-x:hidden;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}
+
+/* ============================================================
+   PAGE SWITCHING
+   ============================================================ */
+.page{
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: none;
+  padding: 64px 20px 96px;
+  overflow: hidden;
+}
+.page.is-active{ display:block; animation: pageIn 0.6s ease both; }
+
+@keyframes pageIn{
+  from{ opacity:0; transform: translateY(14px); }
+  to{ opacity:1; transform: translateY(0); }
+}
+
+.page-inner{
+  position: relative;
+  z-index: 2;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* ============================================================
+   SHARED PIECES
+   ============================================================ */
+.eyebrow{
+  font-family: var(--round-body);
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+.eyebrow--usagi{ color: var(--usagi-gold); }
+.eyebrow--chiikawa{ color: var(--chii-blush); }
+
+.hero-title{
+  font-family: 'Baloo 2', sans-serif;
+  font-size: clamp(48px, 14vw, 76px);
+  line-height: 0.95;
+  margin: 0 0 28px;
+}
+.hero-title--usagi{ color: var(--usagi-ink); }
+.hero-title--chiikawa{
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  color: var(--chii-ink);
+}
+
+.profile-card{
+  display:flex;
+  align-items:center;
+  gap: 18px;
+  padding: 18px;
+  border-radius: 24px;
+  margin-bottom: 24px;
+  backdrop-filter: blur(2px);
+}
+.card--usagi{ background: rgba(255,255,255,0.55); border: 2px solid rgba(232,169,60,0.35); }
+.card--chiikawa{ background: rgba(255,255,255,0.65); border: 2px solid rgba(244,166,174,0.4); }
+
+.profile-photo-wrap{ position: relative; flex-shrink:0; width: 92px; height: 92px; }
+.profile-photo{
+  width: 92px; height: 92px; border-radius: 50%;
+  object-fit: cover; display:block;
+  position: relative; z-index: 2;
+}
+.photo-ring{
+  position:absolute; inset: -6px; border-radius:50%;
+  z-index:1;
+}
+.photo-ring--usagi{ background: linear-gradient(135deg, var(--usagi-yellow), var(--usagi-blush)); }
+.photo-ring--chiikawa{ background: linear-gradient(135deg, var(--chii-pink), var(--chii-cream)); }
+
+.profile-name{ margin: 0 0 4px; font-family: 'Baloo 2', sans-serif; font-size: 20px; }
+.hero-title--chiikawa ~ .profile-card .profile-name{ font-family: 'Quicksand', sans-serif; }
+.profile-meta{ margin:0; font-size: 13px; opacity: 0.75; }
+
+.facts-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 26px;
+}
+.fact-card{
+  border-radius: 18px;
+  padding: 14px 16px;
+}
+.fact-card h3{
+  margin: 0 0 4px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 800;
+}
+.fact-card p{ margin:0; font-size: 14px; line-height: 1.4; }
+
+.fact-card--usagi{ background: rgba(255,255,255,0.55); border: 1.5px solid rgba(232,169,60,0.3); }
+.fact-card--usagi h3{ color: var(--usagi-gold); }
+.fact-card--usagi p{ color: var(--usagi-ink); }
+
+.fact-card--chiikawa{ background: rgba(255,255,255,0.7); border: 1.5px solid rgba(244,166,174,0.35); }
+.fact-card--chiikawa h3{ color: var(--chii-blush); }
+.fact-card--chiikawa p{ color: var(--chii-ink); }
+
+.artists-block, .notes-block{
+  border-radius: 20px;
+  padding: 18px 20px;
+  margin-bottom: 18px;
+}
+.artists-block h3, .notes-block h3{
+  margin: 0 0 10px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 800;
+}
+.artist-list{ margin:0; padding-left: 20px; font-size: 14px; line-height: 1.9; }
+.notes-list{ margin:0; padding-left: 18px; font-size: 14px; line-height: 1.75; }
+
+.artists-block--usagi, .notes-block--usagi{ background: rgba(255,255,255,0.5); border: 1.5px solid rgba(232,169,60,0.28); }
+.artists-block--usagi h3{ color: var(--usagi-gold); }
+.notes-block--usagi h3{ color: var(--usagi-gold); }
+.artists-block--usagi .artist-list, .notes-block--usagi .notes-list{ color: var(--usagi-ink); }
+
+.artists-block--chiikawa, .notes-block--chiikawa{ background: rgba(255,255,255,0.65); border: 1.5px solid rgba(244,166,174,0.32); }
+.artists-block--chiikawa h3{ color: var(--chii-blush); }
+.notes-block--chiikawa h3{ color: var(--chii-blush); }
+.artists-block--chiikawa .artist-list, .notes-block--chiikawa .notes-list{ color: var(--chii-ink); }
+
+.nav-btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap: 8px;
+  width: 100%;
+  padding: 16px 20px;
+  border: none;
+  border-radius: 999px;
+  font-family: var(--round-body);
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  margin-top: 8px;
+}
+.nav-btn:hover{ transform: translateY(-2px); }
+.nav-btn:active{ transform: translateY(0); }
+.nav-btn__arrow{ transition: transform 0.15s ease; }
+.nav-btn:hover .nav-btn__arrow{ transform: translateX(3px); }
+
+.nav-btn--usagi{
+  background: linear-gradient(135deg, var(--usagi-yellow), var(--usagi-gold));
+  color: var(--usagi-ink);
+  box-shadow: 0 8px 22px rgba(232,169,60,0.35);
+}
+.nav-btn--chiikawa{
+  background: linear-gradient(135deg, var(--chii-pink), var(--chii-blush));
+  color: var(--chii-ink);
+  box-shadow: 0 8px 22px rgba(244,166,174,0.4);
+}
+
+/* ============================================================
+   PAGE 1 — USAGI
+   ============================================================ */
+.page--usagi{
+  background: radial-gradient(circle at 20% 0%, var(--usagi-cream), #FBEFC9 55%, #F7E2AE 100%);
+}
+.bg-critters{
+  position:absolute; inset:0; z-index:1; pointer-events:none;
+}
+.critter{ position:absolute; opacity:0.85; }
+
+/* ============================================================
+   PAGE 2 — CHIIKAWA
+   ============================================================ */
+.page--chiikawa{
+  background: radial-gradient(circle at 80% 0%, var(--chii-white), #FFF1F0 55%, #FCE3E6 100%);
+}
+
+/* ============================================================
+   PAGE 3 — LETTER
+   ============================================================ */
+.page--letter{
+  background: linear-gradient(160deg, var(--letter-bg-a), var(--letter-bg-b) 60%, #FFE0E9);
+  padding-top: 72px;
+}
+.hearts-field{ position:absolute; inset:0; z-index:1; pointer-events:none; overflow:hidden; }
+.heart{
+  position:absolute;
+  bottom: -40px;
+  color: var(--letter-rose);
+  opacity: 0.55;
+  animation-name: floatUp;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+@keyframes floatUp{
+  0%{ transform: translateY(0) rotate(0deg); opacity:0; }
+  10%{ opacity:0.6; }
+  90%{ opacity:0.5; }
+  100%{ transform: translateY(-115vh) rotate(25deg); opacity:0; }
+}
+
+.page-inner--letter{ position: relative; z-index: 2; }
+
+.letter-kicker{
+  text-align:center;
+  font-family: var(--round-body);
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 12px;
+  color: var(--letter-deep);
+  margin: 0 0 4px;
+}
+.letter-title{
+  text-align:center;
+  font-family: 'Caveat', cursive;
+  font-size: clamp(44px, 12vw, 68px);
+  color: var(--letter-deep);
+  margin: 0 0 24px;
+}
+
+.photo-gallery{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px 14px;
+  max-width: 460px;
+  margin: 0 auto 36px;
+  padding: 0 6px;
+}
+.gallery-photo{
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  background: #fff;
+  padding: 10px 10px 22px;
+  border-radius: 6px;
+  box-shadow: 0 14px 30px rgba(192,96,122,0.22);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.gallery-photo--1{ transform: rotate(-6deg) translateY(6px); }
+.gallery-photo--2{ transform: rotate(4deg); }
+.gallery-photo--3{ transform: rotate(3deg) translateY(4px); }
+.gallery-photo--4{ transform: rotate(-4deg); }
+.gallery-photo:hover{
+  transform: rotate(0deg) scale(1.04) translateY(-2px);
+  box-shadow: 0 18px 36px rgba(192,96,122,0.3);
+  z-index: 3;
+  position: relative;
+}
+
+@media (min-width: 600px){
+  .photo-gallery{ max-width: 520px; gap: 22px 18px; }
+}
+
+.letter-paper{
+  background: rgba(255,255,255,0.75);
+  border: 1px solid rgba(232,137,155,0.35);
+  border-radius: 22px;
+  padding: 36px 30px;
+  box-shadow: 0 20px 50px rgba(192,96,122,0.15);
+  backdrop-filter: blur(3px);
+}
+.letter-paper p{
+  font-family: var(--serif-body);
+  font-size: 16.5px;
+  line-height: 1.85;
+  color: var(--letter-ink);
+  margin: 0 0 20px;
+}
+.letter-paper p:last-child{ margin-bottom: 0; }
+.letter-sign{
+  font-style: italic;
+  text-align: right;
+  font-weight: 500;
+  color: var(--letter-deep) !important;
+}
+
+.sound-toggle{
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 5;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.85);
+  color: var(--letter-deep);
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(192,96,122,0.25);
+}
+.sound-toggle.is-muted{ opacity: 0.5; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (min-width: 600px){
+  .page{ padding: 88px 40px 120px; }
+  .letter-paper{ padding: 48px 56px; }
+}
